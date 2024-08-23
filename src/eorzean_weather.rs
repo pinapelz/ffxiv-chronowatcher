@@ -81,6 +81,7 @@ fn map_string_to_weather(zone_name: String) -> Weather {
     }
 }
 
+#[derive(Debug)]
 pub struct EorzeaWeather{
     pub start_time: i64,
     pub end_time: i64,
@@ -138,7 +139,7 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
 }
 
 
-pub fn calculate_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
+pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
     // Convert the input to a Unix timestamp in seconds
     let unix_seconds = current_time.to_unix_timestamp() / 1000;
 
@@ -184,7 +185,7 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
 
     // Get the current forecast target
     let epoch = current_time.to_unix_timestamp();
-    let forecast_target = calculate_forecast_target(epoch);
+    let forecast_target = calculate_weather_forecast_target(epoch);
 
     // Find the weather type that matches the forecast target
     for (weather, chance) in zone_data {
@@ -207,14 +208,30 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
 /// # Returns
 /// - An EorzeaWeather struct representing the forecasted weather
 /// 
-pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, offset: i32) -> EorzeaWeather {
+pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, interval_offset: i32) -> EorzeaWeather {
     // Each interval is 8 Eorzean hours. 00:00, 08:00, 16:00 are the start times
+    let current_epoch = current_time.to_unix_timestamp();
+    if interval_offset == 0 {
+        // Calculate the current weather interval
+        let (start_time, end_time) = calculate_current_weather_interval(current_time);
+        let current_weather = get_weather_by_time(zone_name, current_epoch);
+        return EorzeaWeather {
+            start_time: start_time,
+            end_time: end_time,
+            zone_name: zone_name.to_string(),
+            weather: current_weather
+        };
+    }
     
-    //Return a stubbed value for now
+    // Find the current interval and get the weather for the start of the interval
+    let current_forecast_interval = calculate_current_weather_interval(current_epoch);
+    // Weather changes every 23 real-world minutes, convert to 60 seconds, adjust for number of intervals seeking
+    let offset_interval_start = current_forecast_interval.0 + (23* (1 + interval_offset as i64) *60);
+    let weather_at_offset = get_weather_by_time(zone_name, offset_interval_start*1000);
     EorzeaWeather {
-        start_time: 0,
-        end_time: 0,
+        start_time: offset_interval_start,
+        end_time: offset_interval_start + 23*60,
         zone_name: zone_name.to_string(),
-        weather: Weather::ClearSkies
+        weather: weather_at_offset
     }
 }
