@@ -2,6 +2,10 @@ use chrono::{DateTime,Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::from_str;
 use std::fs;
+use crate::eorzean_time::convert_to_eorzean_time;
+use crate::eorzean_time::convert_eorzean_duration_to_earth_seconds;
+use crate::eorzean_time::EorzeanTime;
+use crate::eorzean_time::ToUnixTimestamp;
 
 #[derive(Debug)]
 pub enum Weather{
@@ -84,28 +88,53 @@ pub struct EorzeaWeather{
     pub weather: Weather
 }
 
-/// Handles i64 and DateTime<Utc> types
-pub trait ToUnixTimestamp {
-    /// Converts the implementing type to a Unix timestamp.
-    ///
-    /// # Returns
-    /// 
-    /// An `i64` representing the Unix timestamp
-    fn to_unix_timestamp(&self) -> i64;
-}
+pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -> (i64, i64){
+    let current_epoch = current_time.to_unix_timestamp();
+    let current_eorzean_time = convert_to_eorzean_time(current_epoch);
+    let curr_hour = current_eorzean_time.0 as i64;
+    let curr_minute = current_eorzean_time.1 as i64;
+    
+    // Find the nearest 8 Eorzean hour interval (00:00, 08:00, 16:00)
+    let nearest_start_interval_hour = (curr_hour / 8) * 8;
+    let nearest_end_interval_hour = ((curr_hour / 8) + 1) * 8;
 
-impl ToUnixTimestamp for i64 {
-    /// Returns the `i64` value as the Unix timestamp
-    fn to_unix_timestamp(&self) -> i64 {
-        *self
-    }
-}
+    // Find the difference in minutes to the nearest start and end intervals
+    let ezt_minutes_since_start_interval = (curr_hour * 60 + curr_minute) - (nearest_start_interval_hour * 60);
+    let ezt_minutes_to_end_interval = if nearest_end_interval_hour == 24 {
+        (24 * 60) - (curr_hour * 60 + curr_minute)
+    } else {
+        (nearest_end_interval_hour * 60) - (curr_hour * 60 + curr_minute)
+    };
 
-impl ToUnixTimestamp for DateTime<Utc> {
-    /// Converts `DateTime<Utc>` to a Unix timestamp in milliseconds
-    fn to_unix_timestamp(&self) -> i64 {
-        self.timestamp_millis()
-    }
+ 
+    let seconds_since_start_interval = convert_eorzean_duration_to_earth_seconds(
+        EorzeanTime {
+            years: 0,
+            moons: 0,
+            weeks: 0,
+            suns: 0,
+            bells: 0,
+            minutes: ezt_minutes_since_start_interval as u64,
+            seconds: 0,
+        }
+    );
+
+    let seconds_to_end_interval = convert_eorzean_duration_to_earth_seconds(
+        EorzeanTime {
+            years: 0,
+            moons: 0,
+            weeks: 0,
+            suns: 0,
+            bells: 0,
+            minutes: ezt_minutes_to_end_interval as u64,
+            seconds: 0,
+        }
+    );
+    let current_epoch_seconds = current_epoch.to_unix_timestamp() / 1000;
+    let start_time = current_epoch_seconds - seconds_since_start_interval as i64;
+    let end_time = current_epoch_seconds + seconds_to_end_interval as i64;
+    (start_time, end_time)
+    
 }
 
 
@@ -159,7 +188,6 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
 
     // Find the weather type that matches the forecast target
     for (weather, chance) in zone_data {
-        println!("Weather: {}, Chance: {}", weather, chance);
         if forecast_target < chance {
             return map_string_to_weather(weather);
         }
@@ -169,3 +197,24 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
     panic!("No weather found for the forecast target");
 }
 
+/// Calculates the weather forecast for a given zone at a given time
+/// 
+/// # Arguments
+/// - `zone_name` - The name of the zone to calculate the forecast for
+/// - `current_time` - The current time to calculate the forecast for
+/// - `offset` - The intervals to calculate the forecast for. +1 means the next interval, -1 means the previous interval
+/// 
+/// # Returns
+/// - An EorzeaWeather struct representing the forecasted weather
+/// 
+pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, offset: i32) -> EorzeaWeather {
+    // Each interval is 8 Eorzean hours. 00:00, 08:00, 16:00 are the start times
+    
+    //Return a stubbed value for now
+    EorzeaWeather {
+        start_time: 0,
+        end_time: 0,
+        zone_name: zone_name.to_string(),
+        weather: Weather::ClearSkies
+    }
+}
