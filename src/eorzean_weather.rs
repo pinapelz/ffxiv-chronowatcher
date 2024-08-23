@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::from_str;
 use std::fs;
 use crate::eorzean_time::convert_to_eorzean_time;
-use crate::eorzean_time::convert_eorzean_duration_to_earth_seconds;
+use crate::eorzean_time::eorzea_duration_to_earth_sec;
 use crate::eorzean_time::EorzeanTime;
 use crate::eorzean_time::ToUnixTimestamp;
 
@@ -116,7 +116,7 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
     };
 
  
-    let seconds_since_start_interval = convert_eorzean_duration_to_earth_seconds(
+    let seconds_since_start_interval = eorzea_duration_to_earth_sec(
         EorzeanTime {
             years: 0,
             moons: 0,
@@ -128,7 +128,7 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
         }
     );
 
-    let seconds_to_end_interval = convert_eorzean_duration_to_earth_seconds(
+    let seconds_to_end_interval = eorzea_duration_to_earth_sec(
         EorzeanTime {
             years: 0,
             moons: 0,
