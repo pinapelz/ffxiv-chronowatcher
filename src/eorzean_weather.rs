@@ -7,7 +7,7 @@ use crate::eorzean_time::convert_eorzean_duration_to_earth_seconds;
 use crate::eorzean_time::EorzeanTime;
 use crate::eorzean_time::ToUnixTimestamp;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Weather{
     AstroMagneticStorm,
     Blizzards,
@@ -140,27 +140,15 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
 
 
 pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
-    // Convert the input to a Unix timestamp in seconds
+    // Calculate magic weather number the game uses. Thanks to ffxiv-datamining
     let unix_seconds = current_time.to_unix_timestamp() / 1000;
-
-    // Get Eorzea hour for weather start
     let bell = unix_seconds / 175;
-
-    // Do the magic 'cause for calculations 16:00 is 0, 00:00 is 8 and 08:00 is 16
     let increment = (bell + 8 - (bell % 8)) % 24;
-
-    // Take Eorzea days since unix epoch
     let total_days = unix_seconds / 4200;
-    let total_days: u32 = total_days.try_into().unwrap_or(0); // Convert to uint
-
-    // 0x64 = 100
+    let total_days: u32 = total_days.try_into().unwrap_or(0);
     let calc_base = total_days * 100 + increment as u32;
-
-    // 0xB = 11
     let step1 = (calc_base << 11) ^ calc_base;
     let step2 = (step1 >> 8) ^ step1;
-
-    // 0x64 = 100
     (step2 % 100) as i32
 }
 
@@ -229,9 +217,23 @@ pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, 
     let offset_interval_start = current_forecast_interval.0 + (23* (1 + interval_offset as i64) *60);
     let weather_at_offset = get_weather_by_time(zone_name, offset_interval_start*1000);
     EorzeaWeather {
-        start_time: offset_interval_start,
-        end_time: offset_interval_start + 23*60,
+        start_time: offset_interval_start - 1380,
+        end_time: offset_interval_start,
         zone_name: zone_name.to_string(),
         weather: weather_at_offset
     }
+}
+
+/// Find the time which a next Weather effect will occur
+pub fn find_next_weather_occurance<T: ToUnixTimestamp>(zone_name: &str, current_time: T, target_weather: Weather) -> EorzeaWeather{
+    let current_epoch = current_time.to_unix_timestamp();
+    let mut current_interval = 1;
+    let mut next_weather = calculate_forecast(zone_name, current_epoch, current_interval);
+    println!("Found next weather {:?}", next_weather);
+    while (next_weather.weather != target_weather) {
+        current_interval += 1;
+        next_weather = calculate_forecast(zone_name, current_epoch, current_interval);
+        println!("Found next weather {:?}", next_weather);
+    }
+    next_weather
 }
