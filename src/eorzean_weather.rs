@@ -7,6 +7,7 @@ use crate::eorzean_time::convert_eorzean_duration_to_earth_seconds;
 use crate::eorzean_time::EorzeanTime;
 use crate::eorzean_time::ToUnixTimestamp;
 
+/// The different weather types in the game
 #[derive(Debug, PartialEq)]
 pub enum Weather{
     AstroMagneticStorm,
@@ -89,6 +90,13 @@ pub struct EorzeaWeather{
     pub weather: Weather
 }
 
+/// Calculates the current weather interval
+/// 
+/// # Arguments
+/// - `current_time` - The current time to calculate the forecast for
+/// 
+/// # Returns
+/// - A tuple containing the start and end times of the current weather interval
 pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -> (i64, i64){
     let current_epoch = current_time.to_unix_timestamp();
     let current_eorzean_time = convert_to_eorzean_time(current_epoch);
@@ -139,6 +147,13 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
 }
 
 
+/// Calculates the magic number used to determine the weather
+/// 
+/// # Arguments
+/// - `current_time` - The current time to calculate the forecast for
+/// 
+/// # Returns
+/// - An `i32` representing the magic number used to determine the weather
 pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
     // Calculate magic weather number the game uses. Thanks to ffxiv-datamining
     let unix_seconds = current_time.to_unix_timestamp() / 1000;
@@ -225,6 +240,14 @@ pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, 
 }
 
 /// Find the time which a next Weather effect will occur
+/// 
+/// # Arguments
+/// - `zone_name` - The name of the zone to calculate the forecast for
+/// - `current_time` - The current time to calculate the forecast for
+/// - `target_weather` - The weather effect to search for
+/// 
+/// # Returns
+/// - An EorzeaWeather struct representing the next weather effect
 pub fn find_next_weather_occurance<T: ToUnixTimestamp>(zone_name: &str, current_time: T, target_weather: Weather) -> EorzeaWeather{
     let current_epoch = current_time.to_unix_timestamp();
     let mut current_interval = 1;
