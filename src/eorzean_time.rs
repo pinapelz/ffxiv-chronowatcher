@@ -150,7 +150,7 @@ pub fn convert_to_eorzean_time<T: ToUnixTimestamp>(input_time: T) -> (u8, u8) {
 /// # Returns
 /// - An `EorzeanTime` struct representing the Eorzean time equivalent of the input seconds
 pub fn convert_earth_seconds_to_eorzean_duration(seconds: f64) -> EorzeanTime {
-    let eorzean_seconds = seconds * 22.0/12.0;
+    let eorzean_seconds = seconds * 1.0/0.0486;
 
     let years = (eorzean_seconds / EORZEA_SECONDS_PER_YEAR) as u64;
     let remaining_seconds = eorzean_seconds % EORZEA_SECONDS_PER_YEAR;
@@ -182,13 +182,13 @@ pub fn convert_earth_seconds_to_eorzean_duration(seconds: f64) -> EorzeanTime {
 }
 
 /// Converts an EorzeanDuration to Earth seconds
-/// 
+///
 /// # Arguments
 /// - `eorzean_duration` - An `EorzeanTime` struct representing the Eorzean time equivalent of the input seconds
-/// 
+///
 /// # Returns
-/// - A `i64` representing the number of seconds to convert
-pub fn convert_eorzean_duration_to_earth_seconds(eorzean_duration: EorzeanTime) -> i64 {
+/// - A `i64` representing the number of Earth seconds corresponding to the Eorzean duration
+pub fn convert_eorzean_duration_to_earth_seconds(eorzean_duration: EorzeanTime) -> f64 {
     let total_seconds = eorzean_duration.years as f64 * EORZEA_SECONDS_PER_YEAR +
         eorzean_duration.moons as f64 * EORZEA_SECONDS_PER_MOON +
         eorzean_duration.weeks as f64 * EORZEA_SECONDS_PER_WEEK +
@@ -196,5 +196,5 @@ pub fn convert_eorzean_duration_to_earth_seconds(eorzean_duration: EorzeanTime) 
         eorzean_duration.bells as f64 * EORZEA_SECONDS_PER_HOUR +
         eorzean_duration.minutes as f64 * EORZEA_SECONDS_PER_MINUTE +
         eorzean_duration.seconds as f64;
-    (total_seconds as i64 * 12/22) as i64
+    total_seconds * (35.0/720.0)
 }
