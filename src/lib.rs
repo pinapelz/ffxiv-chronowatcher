@@ -1,14 +1,6 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+pub mod eorzean_time;
+pub mod eorzean_weather;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub use eorzean_time::*;
+pub use eorzean_weather::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
