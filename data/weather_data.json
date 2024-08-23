@@ -1,0 +1,747 @@
+{
+    "Limsa Lominsa": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Limsa Lominsa Lower Decks": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Ul'dah": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Ul'dah - Steps of Thal": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Gridania": [
+      ["Rain", 5],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 55],
+      ["Clear Skies", 85],
+      ["Fair Skies", 100]
+    ],
+    "Old Gridania": [
+      ["Rain", 5],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 55],
+      ["Clear Skies", 85],
+      ["Fair Skies", 100]
+    ],
+    "Middle La Noscea": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 70],
+      ["Wind", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Lower La Noscea": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 70],
+      ["Wind", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Mist": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Eastern La Noscea": [
+      ["Fog", 5],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Clouds", 90],
+      ["Rain", 95],
+      ["Showers", 100]
+    ],
+    "Western La Noscea": [
+      ["Fog", 10],
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 80],
+      ["Wind", 90],
+      ["Gales", 100]
+    ],
+    "Upper La Noscea": [
+      ["Clear Skies", 30],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 80],
+      ["Thunder", 90],
+      ["Thunderstorms", 100]
+    ],
+    "Western Thanalan": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Central Thanalan": [
+      ["Dust Storms", 15],
+      ["Clear Skies", 55],
+      ["Fair Skies", 75],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Eastern Thanalan": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 70],
+      ["Fog", 80],
+      ["Rain", 85],
+      ["Showers", 100]
+    ],
+    "Southern Thanalan": [
+      ["Heat Waves", 20],
+      ["Clear Skies", 60],
+      ["Fair Skies", 80],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "Northern Thanalan": [
+      ["Clear Skies", 5],
+      ["Fair Skies", 20],
+      ["Clouds", 50],
+      ["Fog", 100]
+    ],
+    "Central Shroud": [
+      ["Thunder", 5],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 55],
+      ["Clear Skies", 85],
+      ["Fair Skies", 100]
+    ],
+    "The Feasting Grounds": [
+      ["Fair Skies", 50],
+      ["Rain", 100]
+    ],
+    "East Shroud": [
+      ["Thunder", 5],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 55],
+      ["Clear Skies", 85],
+      ["Fair Skies", 100]
+    ],
+    "South Shroud": [
+      ["Fog", 5],
+      ["Thunderstorms", 10],
+      ["Thunder", 25],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 70],
+      ["Clear Skies", 100]
+    ],
+    "North Shroud": [
+      ["Fog", 5],
+      ["Showers", 10],
+      ["Rain", 25],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 70],
+      ["Clear Skies", 100]
+    ],
+    "Coerthas Central Highlands": [
+      ["Blizzards", 20],
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "Mor Dhona": [
+      ["Clouds", 15],
+      ["Fog", 30],
+      ["Gloom", 60],
+      ["Clear Skies", 75],
+      ["Fair Skies", 100]
+    ],
+    "Outer La Noscea": [
+      ["Clear Skies", 30],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Rain", 100]
+    ],
+    "Command Room": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Wolves' Den Pier": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Thunderstorms", 100]
+    ],
+    "Mist": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 70],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "The Lavender Beds": [
+      ["Clouds", 5],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 40],
+      ["Fair Skies", 55],
+      ["Clear Skies", 85],
+      ["Fair Skies", 100]
+    ],
+    "The Goblet": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 60],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "The Weeping Saint": [
+      ["Blizzards", 20],
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "Coerthas Western Highlands": [
+      ["Blizzards", 20],
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "The Dravanian Forelands": [
+      ["Clouds", 10],
+      ["Fog", 20],
+      ["Thunder", 30],
+      ["Dust Storms", 40],
+      ["Clear Skies", 70],
+      ["Fair Skies", 100]
+    ],
+    "The Dravanian Hinterlands": [
+      ["Clouds", 10],
+      ["Fog", 20],
+      ["Rain", 30],
+      ["Showers", 40],
+      ["Clear Skies", 70],
+      ["Fair Skies", 100]
+    ],
+    "The Churning Mists": [
+      ["Clouds", 10],
+      ["Gales", 20],
+      ["Umbral Static", 40],
+      ["Clear Skies", 70],
+      ["Fair Skies", 100]
+    ],
+    "The Sea of Clouds": [
+      ["Clear Skies", 30],
+      ["Fair Skies", 60],
+      ["Clouds", 70],
+      ["Fog", 80],
+      ["Wind", 90],
+      ["Umbral Wind", 100]
+    ],
+    "Azys Lla": [
+      ["Fair Skies", 35],
+      ["Clouds", 70],
+      ["Thunder", 100]
+    ],
+    "Ishgard": [
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "The Pillars": [
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "Seal Rock": [
+      ["Fog", 15],
+      ["Rain", 40],
+      ["Fair Skies", 100]
+    ],
+    "Idyllshire": [
+      ["Clouds", 10],
+      ["Fog", 20],
+      ["Rain", 30],
+      ["Showers", 40],
+      ["Clear Skies", 70],
+      ["Fair Skies", 100]
+    ],
+    "The Diadem": [
+      ["Fair Skies", 40],
+      ["Fog", 75],
+      ["Wind", 95],
+      ["Umbral Wind", 99],
+      ["Hyperelectricity", 100]
+    ],
+    "The Fields of Glory": [
+      ["Fair Skies", 35],
+      ["Snow", 65],
+      ["Blizzards", 85],
+      ["Fog", 100]
+    ],
+    "The Fringes": [
+      ["Clear Skies", 15],
+      ["Fair Skies", 60],
+      ["Clouds", 80],
+      ["Fog", 90],
+      ["Thunder", 100]
+    ],
+    "The Ruby Sea": [
+      ["Thunder", 10],
+      ["Wind", 20],
+      ["Clouds", 35],
+      ["Fair Skies", 75],
+      ["Clear Skies", 100]
+    ],
+    "Yanxia": [
+      ["Showers", 5],
+      ["Rain", 15],
+      ["Fog", 25],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "The Peaks": [
+      ["Clear Skies", 10],
+      ["Fair Skies", 60],
+      ["Clouds", 75],
+      ["Fog", 85],
+      ["Wind", 95],
+      ["Dust Storms", 100]
+    ],
+    "The Lochs": [
+      ["Clear Skies", 20],
+      ["Fair Skies", 60],
+      ["Clouds", 80],
+      ["Fog", 90],
+      ["Thunderstorms", 100]
+    ],
+    "The Azim Steppe": [
+      ["Gales", 5],
+      ["Wind", 10],
+      ["Rain", 17],
+      ["Fog", 25],
+      ["Clouds", 35],
+      ["Fair Skies", 75],
+      ["Clear Skies", 100]
+    ],
+    "Kugane": [
+      ["Rain", 10],
+      ["Fog", 20],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "Bokairo Inn": [
+      ["Rain", 10],
+      ["Fog", 20],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "Rhalgr's Reach": [
+      ["Clear Skies", 15],
+      ["Fair Skies", 60],
+      ["Clouds", 80],
+      ["Fog", 90],
+      ["Thunder", 100]
+    ],
+    "Shirogane": [
+      ["Rain", 10],
+      ["Fog", 20],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "The Diadem": [
+      ["Fair Skies", 30],
+      ["Fog", 60],
+      ["Wind", 90],
+      ["Umbral Wind", 100]
+    ],
+    "The House of the Fierce": [
+      ["Showers", 5],
+      ["Rain", 15],
+      ["Fog", 25],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "The Doman Enclave": [
+      ["Showers", 5],
+      ["Rain", 15],
+      ["Fog", 25],
+      ["Clouds", 40],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "Eureka Anemos": [
+      ["Fair Skies", 30],
+      ["Gales", 60],
+      ["Showers", 90],
+      ["Snow", 100]
+    ],
+    "Eureka Pagos": [
+      ["Fair Skies", 10],
+      ["Fog", 28],
+      ["Heat Waves", 46],
+      ["Snow", 64],
+      ["Thunder", 82],
+      ["Blizzards", 100]
+    ],
+    "Eureka Pyros": [
+      ["Fair Skies", 10],
+      ["Heat Waves", 28],
+      ["Thunder", 46],
+      ["Blizzards", 64],
+      ["Umbral Wind", 82],
+      ["Snow", 100]
+    ],
+    "Lakeland": [
+      ["Clear Skies", 20],
+      ["Fair Skies", 60],
+      ["Clouds", 75],
+      ["Fog", 85],
+      ["Rain", 95],
+      ["Thunderstorms", 100]
+    ],
+    "Kholusia": [
+      ["Gales", 10],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 45],
+      ["Fair Skies", 85],
+      ["Clear Skies", 100]
+    ],
+    "Amh Araeng": [
+      ["Fair Skies", 45],
+      ["Clouds", 60],
+      ["Dust Storms", 70],
+      ["Heat Waves", 80],
+      ["Clear Skies", 100]
+    ],
+    "Il Mheg": [
+      ["Rain", 10],
+      ["Fog", 20],
+      ["Clouds", 35],
+      ["Thunderstorms", 45],
+      ["Clear Skies", 60],
+      ["Fair Skies", 100]
+    ],
+    "The Rak'tika Greatwood": [
+      ["Fog", 10],
+      ["Rain", 20],
+      ["Umbral Wind", 30],
+      ["Clear Skies", 45],
+      ["Fair Skies", 85],
+      ["Clouds", 100]
+    ],
+    "The Tempest": [
+      ["Clouds", 20],
+      ["Fair Skies", 80],
+      ["Clear Skies", 100]
+    ],
+    "The Crystarium": [
+      ["Clear Skies", 20],
+      ["Fair Skies", 60],
+      ["Clouds", 75],
+      ["Fog", 85],
+      ["Rain", 95],
+      ["Thunderstorms", 100]
+    ],
+    "Eulmore": [
+      ["Gales", 10],
+      ["Rain", 20],
+      ["Fog", 30],
+      ["Clouds", 45],
+      ["Fair Skies", 85],
+      ["Clear Skies", 100]
+    ],
+    "Eureka Hydatos": [
+      ["Fair Skies", 12],
+      ["Showers", 34],
+      ["Gloom", 56],
+      ["Thunderstorms", 78],
+      ["Snow", 100]
+    ],
+    "The Pendants Personal Suite": [
+      ["Clear Skies", 20],
+      ["Fair Skies", 60],
+      ["Clouds", 75],
+      ["Fog", 85],
+      ["Rain", 95],
+      ["Thunderstorms", 100]
+    ],
+    "The Firmament": [
+      ["Snow", 60],
+      ["Fair Skies", 70],
+      ["Clear Skies", 75],
+      ["Clouds", 90],
+      ["Fog", 100]
+    ],
+    "Onsal Hakair": [
+      ["Fair Skies", 50],
+      ["Wind", 80],
+      ["Rain", 90],
+      ["Gales", 95],
+      ["Fog", 100]
+    ],
+    "Lyhe Mheg": [
+      ["Clear Skies", 50],
+      ["Fair Skies", 100]
+    ],
+    "The Endeavor": [
+      ["Clouds", 20],
+      ["Clear Skies", 50],
+      ["Fair Skies", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Bozjan Southern Front": [
+      ["Fair Skies", 52],
+      ["Rain", 64],
+      ["Wind", 76],
+      ["Thunder", 88],
+      ["Dust Storms", 100]
+    ],
+    "Labyrinthos": [
+      ["Clear Skies", 15],
+      ["Fair Skies", 60],
+      ["Clouds", 85],
+      ["Rain", 100]
+    ],
+    "Thavnair": [
+      ["Fog", 10],
+      ["Rain", 20],
+      ["Showers", 25],
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 100]
+    ],
+    "Garlemald": [
+      ["Snow", 45],
+      ["Thunder", 50],
+      ["Rain", 55],
+      ["Fog", 60],
+      ["Clouds", 85],
+      ["Fair Skies", 95],
+      ["Clear Skies", 100]
+    ],
+    "Mare Lamentorum": [
+      ["Umbral Wind", 15],
+      ["Moon Dust", 30],
+      ["Fair Skies", 100]
+    ],
+    "Ultima Thule": [
+      ["Astromagnetic Storms", 15],
+      ["Fair Skies", 85],
+      ["Umbral Wind", 100]
+    ],
+    "Elpis": [
+      ["Clouds", 25],
+      ["Umbral Wind", 40],
+      ["Fair Skies", 85],
+      ["Clear Skies", 100]
+    ],
+    "Old Sharlayan": [
+      ["Clear Skies", 10],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Snow", 100]
+    ],
+    "Radz-at-Han": [
+      ["Fog", 10],
+      ["Rain", 25],
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 100]
+    ],
+    "Zadnor": [
+      ["Fair Skies", 60],
+      ["Rain", 70],
+      ["Wind", 80],
+      ["Thunder", 90],
+      ["Snow", 100]
+    ],
+    "Empyreum": [
+      ["Snow", 5],
+      ["Fair Skies", 25],
+      ["Clear Skies", 65],
+      ["Clouds", 80],
+      ["Fog", 90],
+      ["Rain", 100]
+    ],
+    "Main Hall": [
+      ["Clear Skies", 10],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Snow", 100]
+    ],
+    "Andron": [
+      ["Clear Skies", 10],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Snow", 100]
+    ],
+    "Unnamed Island": [
+      ["Clear Skies", 25],
+      ["Fair Skies", 70],
+      ["Clouds", 80],
+      ["Rain", 90],
+      ["Fog", 95],
+      ["Showers", 100]
+    ],
+    "Restricted Archives": [
+      ["Clear Skies", 10],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Snow", 100]
+    ],
+    "Elysion": [
+      ["Astromagnetic Storms", 15],
+      ["Fair Skies", 85],
+      ["Umbral Wind", 100]
+    ],
+    "Meghaduta Guest Chambers": [
+      ["Fog", 10],
+      ["Rain", 25],
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 100]
+    ],
+    "Senatus": [
+      ["Snow", 45],
+      ["Thunder", 50],
+      ["Rain", 55],
+      ["Fog", 60],
+      ["Clouds", 85],
+      ["Fair Skies", 95],
+      ["Clear Skies", 100]
+    ],
+    "Estinien's Chambers": [
+      ["Fog", 10],
+      ["Rain", 25],
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 100]
+    ],
+    "Sunperch": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Earthen Sky Hideout": [
+      ["Fair Skies", 5],
+      ["Clouds", 25],
+      ["Fog", 40],
+      ["Rain", 45],
+      ["Thunderstorms", 50],
+      ["Umbral Static", 100]
+    ],
+    "Tuliyollal": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ],
+    "Urqopacha": [
+      ["Clear Skies", 20],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Fog", 80],
+      ["Wind", 90],
+      ["Snow", 100]
+    ],
+    "Kozama'uka": [
+      ["Clear Skies", 25],
+      ["Fair Skies", 60],
+      ["Clouds", 75],
+      ["Fog", 85],
+      ["Rain", 95],
+      ["Showers", 100]
+    ],
+    "Yak T'el": [
+      ["Clear Skies", 15],
+      ["Fair Skies", 55],
+      ["Clouds", 70],
+      ["Fog", 85],
+      ["Rain", 100]
+    ],
+    "Shaaloani": [
+      ["Clear Skies", 5],
+      ["Fair Skies", 50],
+      ["Clouds", 70],
+      ["Dust Storms", 85],
+      ["Gales", 100]
+    ],
+    "Heritage Found": [
+      ["Fair Skies", 5],
+      ["Clouds", 25],
+      ["Fog", 40],
+      ["Rain", 45],
+      ["Thunderstorms", 50],
+      ["Umbral Static", 100]
+    ],
+    "Living Memory": [
+      ["Rain", 10],
+      ["Fog", 20],
+      ["Clouds", 40],
+      ["Fair Skies", 100]
+    ],
+    "The For'ard Cabins": [
+      ["Clear Skies", 40],
+      ["Fair Skies", 80],
+      ["Clouds", 85],
+      ["Fog", 95],
+      ["Rain", 100]
+    ]
+  }
+  
