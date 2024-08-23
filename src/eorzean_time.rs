@@ -1,5 +1,4 @@
 use chrono::{DateTime,Utc};
-use std::fmt;
 
 const EORZEA_CONSTANT: f64 = 3600.0 / 175.0;
 
@@ -105,7 +104,7 @@ pub fn convert_to_eorzean_date<T: ToUnixTimestamp>(input_time: T) -> EorzeanDate
     let bells = (epoch / (1000.0 * EORZEA_SECONDS_PER_HOUR)) % 24.0;
     let total_suns = (epoch / (1000.0 * EORZEA_SECONDS_PER_SUN)) as u64;
     let year = total_suns / (32 * 12);
-    let moon_idx = ((total_suns / 32) % 12 + 1);
+    let moon_idx = (total_suns / 32) % 12 + 1;
     let mut moon_str = EORZEA_MOON_CYCLE_PREFIX[(moon_idx / 2) as usize].to_string();
     
     if moon_idx % 2 == 0 {
