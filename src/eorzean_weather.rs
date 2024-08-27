@@ -252,7 +252,7 @@ pub fn find_next_weather_occurance<T: ToUnixTimestamp>(zone_name: &str, current_
     let current_epoch = current_time.to_unix_timestamp();
     let mut current_interval = 1;
     let mut next_weather = calculate_forecast(zone_name, current_epoch, current_interval);
-    while (next_weather.weather != target_weather) {
+    while next_weather.weather != target_weather {
         current_interval += 1;
         next_weather = calculate_forecast(zone_name, current_epoch, current_interval);
     }
