@@ -166,6 +166,13 @@ pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) ->
     (step2 % 100) as i32
 }
 
+/// Gets the weather for a given zone at a given time
+/// 
+/// # Arguments
+/// - `zone_name` - The name of the zone to calculate the forecast for
+/// 
+/// # Returns
+/// - A Weather struct representing the current weather
 pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T) -> Weather {
     // Load the weather data from the JSON file
     let weather_data = fs::read_to_string("data/weather_data.json").expect("Unable to read the weather data file");
@@ -201,6 +208,7 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
 }
 
 /// Calculates the weather forecast for a given zone at a given time
+/// Setting interval_offset to 0 will calculate the weather at the given time, as well as the start and end times of the interval
 /// 
 /// # Arguments
 /// - `zone_name` - The name of the zone to calculate the forecast for
