@@ -4,7 +4,7 @@ Chronowatcher is a Rust library for getting the time and weather of locations in
 - Retrieving Eorzean Date
 ```rust
 use eorzean_weather::calculate_forecast;
-current_time = Utc::now().timestamp_millis();
+current_time = Utc::now().timestamp();
 let eorzean_date = eorzean_time::convert_to_eorzean_date(current_time);
 // EorzeanDate { guardian: "Thaliak", phase: "Waxing Half Moon", moon: "Second Astral Moon", years: 1069, suns: 9, bells: 5, minutes: 54 }
 
