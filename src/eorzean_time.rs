@@ -137,8 +137,8 @@ pub fn convert_to_eorzean_time<T: ToUnixTimestamp>(input_time: T) -> (u8, u8) {
     let local_epoch = input_time.to_unix_timestamp();
     
     let epoch = local_epoch as f64 * EORZEA_CONSTANT;
-    let minutes = (epoch / (1000.0 * 60.0)) % 60.0;
-    let bells = (epoch / (1000.0 * 60.0 * 60.0)) % 24.0;
+    let minutes = (epoch / 60.0) % 60.0;
+    let bells = (epoch /  3600.0) % 24.0;
     (bells as u8, minutes as u8)
 }
 

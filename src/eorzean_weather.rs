@@ -102,7 +102,6 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
     let current_eorzean_time = convert_to_eorzean_time(current_epoch);
     let curr_hour = current_eorzean_time.0 as i64;
     let curr_minute = current_eorzean_time.1 as i64;
-    
     // Find the nearest 8 Eorzean hour interval (00:00, 08:00, 16:00)
     let nearest_start_interval_hour = (curr_hour / 8) * 8;
     let nearest_end_interval_hour = ((curr_hour / 8) + 1) * 8;
@@ -139,7 +138,7 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
             seconds: 0,
         }
     );
-    let current_epoch_seconds = current_epoch.to_unix_timestamp() / 1000;
+    let current_epoch_seconds = current_epoch.to_unix_timestamp();
     let start_time = current_epoch_seconds - seconds_since_start_interval as i64;
     let end_time = current_epoch_seconds + seconds_to_end_interval as i64;
     (start_time, end_time)
@@ -156,7 +155,7 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
 /// - An `i32` representing the magic number used to determine the weather
 pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
     // Calculate magic weather number the game uses. Thanks to ffxiv-datamining
-    let unix_seconds = current_time.to_unix_timestamp() / 1000;
+    let unix_seconds = current_time.to_unix_timestamp();
     let bell = unix_seconds / 175;
     let increment = (bell + 8 - (bell % 8)) % 24;
     let total_days = unix_seconds / 4200;
@@ -230,7 +229,7 @@ pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, 
     let current_forecast_interval = calculate_current_weather_interval(current_epoch);
     // Weather changes every 23 real-world minutes, convert to 60 seconds, adjust for number of intervals seeking
     let offset_interval_start = current_forecast_interval.0 + (23* (1 + interval_offset as i64) *60);
-    let weather_at_offset = get_weather_by_time(zone_name, offset_interval_start*1000);
+    let weather_at_offset = get_weather_by_time(zone_name, offset_interval_start);
     EorzeaWeather {
         start_time: offset_interval_start - 1380,
         end_time: offset_interval_start,
