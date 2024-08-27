@@ -81,9 +81,9 @@ impl ToUnixTimestamp for i64 {
 }
 
 impl ToUnixTimestamp for DateTime<Utc> {
-    /// Converts `DateTime<Utc>` to a Unix timestamp in milliseconds
+    /// Converts `DateTime<Utc>` to a Unix timestamp in seconds
     fn to_unix_timestamp(&self) -> i64 {
-        self.timestamp_millis()
+        self.timestamp()
     }
 }
 
@@ -98,21 +98,21 @@ pub fn convert_to_eorzean_date<T: ToUnixTimestamp>(input_time: T) -> EorzeanDate
     let local_epoch = input_time.to_unix_timestamp();
     
     let epoch = local_epoch as f64 * EORZEA_CONSTANT;
-    let minutes = (epoch / (1000.0 * EORZEA_SECONDS_PER_MINUTE)) % EORZEA_SECONDS_PER_MINUTE;
-    let bells = (epoch / (1000.0 * EORZEA_SECONDS_PER_HOUR)) % 24.0;
-    let total_suns = (epoch / (1000.0 * EORZEA_SECONDS_PER_SUN)) as u64;
+    let minutes = (epoch / EORZEA_SECONDS_PER_MINUTE) % EORZEA_SECONDS_PER_MINUTE;
+    let bells = (epoch / EORZEA_SECONDS_PER_HOUR) % 24.0;
+    let total_suns = (epoch / EORZEA_SECONDS_PER_SUN) as u64;
     let year = total_suns / (32 * 12);
-    let moon_idx = (total_suns / 32) % 12 + 1;
+    let moon_idx = (total_suns / 32) % 12;
     let mut moon_str = EORZEA_MOON_CYCLE_PREFIX[(moon_idx / 2) as usize].to_string();
     
-    if moon_idx % 2 == 0 {
+    if (moon_idx + 1) % 2 == 0 {
         moon_str.push_str(" Umbral Moon");
     } else {
         moon_str.push_str(" Astral Moon");
     }
     
     let sun = total_suns % 32 + 1;
-    let guardian = EORZEA_THE_TWELVE[(moon_idx - 1) as usize].to_string();
+    let guardian = EORZEA_THE_TWELVE[(moon_idx) as usize].to_string();
     let moon_phase = EORZEA_MOON_PHASES[(sun / 4) as usize].to_string();
     
     EorzeanDate {
@@ -149,8 +149,8 @@ pub fn convert_to_eorzean_time<T: ToUnixTimestamp>(input_time: T) -> (u8, u8) {
 /// 
 /// # Returns
 /// - An `EorzeanTime` struct representing the Eorzean time equivalent of the input seconds
-pub fn earth_sec_to_eorzea_duration(seconds: f64) -> EorzeanTime {
-    let eorzean_seconds = seconds * 1.0/0.0486;
+pub fn earth_sec_to_eorzea_duration(seconds: i64) -> EorzeanTime {
+    let eorzean_seconds = seconds as f64 * 1.0/0.0486;
 
     let years = (eorzean_seconds / EORZEA_SECONDS_PER_YEAR) as u64;
     let remaining_seconds = eorzean_seconds % EORZEA_SECONDS_PER_YEAR;
@@ -188,7 +188,7 @@ pub fn earth_sec_to_eorzea_duration(seconds: f64) -> EorzeanTime {
 ///
 /// # Returns
 /// - A `i64` representing the number of Earth seconds corresponding to the Eorzean duration
-pub fn eorzea_duration_to_earth_sec(eorzean_duration: EorzeanTime) -> f64 {
+pub fn eorzea_duration_to_earth_sec(eorzean_duration: EorzeanTime) -> i64 {
     let total_seconds = eorzean_duration.years as f64 * EORZEA_SECONDS_PER_YEAR +
         eorzean_duration.moons as f64 * EORZEA_SECONDS_PER_MOON +
         eorzean_duration.weeks as f64 * EORZEA_SECONDS_PER_WEEK +
@@ -196,5 +196,5 @@ pub fn eorzea_duration_to_earth_sec(eorzean_duration: EorzeanTime) -> f64 {
         eorzean_duration.bells as f64 * EORZEA_SECONDS_PER_HOUR +
         eorzean_duration.minutes as f64 * EORZEA_SECONDS_PER_MINUTE +
         eorzean_duration.seconds as f64;
-    total_seconds * (35.0/720.0)
+    (total_seconds * (35.0/720.0)) as i64
 }
