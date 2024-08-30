@@ -175,7 +175,7 @@ pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) ->
 /// - A Weather struct representing the current weather
 pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T) -> Weather {
     // Load the weather data from the JSON file
-    let weather_data = fs::read_to_string("data/weather_data.json").expect("Unable to read the weather data file");
+    let weather_data = include_str!("../data/weather_data.json");
     let weather_data: serde_json::Value = serde_json::from_str(&weather_data).expect("Unable to parse the weather data");
     let zone_data = weather_data
         .get(zone_name)
