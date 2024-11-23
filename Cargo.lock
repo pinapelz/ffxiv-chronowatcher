@@ -66,9 +66,10 @@ checksum = "773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b"
 
 [[package]]
 name = "ffxiv-chronowatcher"
-version = "0.0.32"
+version = "0.0.4"
 dependencies = [
  "chrono",
+ "once_cell",
  "serde",
  "serde_json",
 ]

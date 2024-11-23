@@ -1,15 +1,37 @@
-use chrono::{DateTime,Utc};
-use serde::{Deserialize, Serialize};
-use serde_json::from_str;
-use std::fs;
 use crate::eorzean_time::convert_to_eorzean_time;
 use crate::eorzean_time::eorzea_duration_to_earth_sec;
 use crate::eorzean_time::EorzeanTime;
 use crate::eorzean_time::ToUnixTimestamp;
 
+use once_cell::sync::Lazy;
+use std::sync::RwLock;
+
+// Global weather output offset for timing
+// Helper for adjusting the output of start_time and end_time when calculating weather intervals
+// Should only be used in a single-threaded environment
+static GLOBAL_WEATHER_TIMING_OFFSET: Lazy<RwLock<i64>> = Lazy::new(|| RwLock::new(0));
+
+// Sets the global weather timing offset
+//
+// # Arguments
+// offset - The offset to set
+pub fn set_global_weather_timing_offset(offset: i64) {
+    let mut write = GLOBAL_WEATHER_TIMING_OFFSET.write().unwrap();
+    *write = offset;
+}
+
+// Gets the global weather timing offset
+//
+// # Returns
+// The global weather timing offset
+pub fn get_global_weather_timing_offset() -> i64 {
+    let read = GLOBAL_WEATHER_TIMING_OFFSET.read().unwrap();
+    *read
+}
+
 /// The different weather types in the game
 #[derive(Debug, PartialEq)]
-pub enum Weather{
+pub enum Weather {
     AstroMagneticStorm,
     Blizzards,
     ClearSkies,
@@ -28,12 +50,12 @@ pub enum Weather{
     Thunderstorms,
     UmbralStatic,
     UmbralWind,
-    Wind
+    Wind,
 }
 
-impl Weather{
-    pub fn to_string(&self) -> String{
-        match self{
+impl Weather {
+    pub fn to_string(&self) -> String {
+        match self {
             Weather::AstroMagneticStorm => "Astro-Magnetic Storms".to_string(),
             Weather::Blizzards => "Blizzards".to_string(),
             Weather::ClearSkies => "Clear Skies".to_string(),
@@ -52,7 +74,7 @@ impl Weather{
             Weather::Thunderstorms => "Thunderstorms".to_string(),
             Weather::UmbralStatic => "Umbral Static".to_string(),
             Weather::UmbralWind => "Umbral Wind".to_string(),
-            Weather::Wind => "Wind".to_string()
+            Weather::Wind => "Wind".to_string(),
         }
     }
 }
@@ -78,26 +100,26 @@ fn map_string_to_weather(zone_name: String) -> Weather {
         "Umbral Static" => Weather::UmbralStatic,
         "Umbral Wind" => Weather::UmbralWind,
         "Wind" => Weather::Wind,
-        _ => panic!("Invalid weather type")
+        _ => panic!("Invalid weather type"),
     }
 }
 
 #[derive(Debug)]
-pub struct EorzeaWeather{
+pub struct EorzeaWeather {
     pub start_time: i64,
     pub end_time: i64,
     pub zone_name: String,
-    pub weather: Weather
+    pub weather: Weather,
 }
 
 /// Calculates the current weather interval
-/// 
+///
 /// # Arguments
 /// - `current_time` - The current time to calculate the forecast for
-/// 
+///
 /// # Returns
 /// - A tuple containing the start and end times of the current weather interval
-pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -> (i64, i64){
+pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -> (i64, i64) {
     let current_epoch = current_time.to_unix_timestamp();
     let current_eorzean_time = convert_to_eorzean_time(current_epoch);
     let curr_hour = current_eorzean_time.0 as i64;
@@ -107,50 +129,44 @@ pub fn calculate_current_weather_interval<T: ToUnixTimestamp>(current_time: T) -
     let nearest_end_interval_hour = ((curr_hour / 8) + 1) * 8;
 
     // Find the difference in minutes to the nearest start and end intervals
-    let ezt_minutes_since_start_interval = (curr_hour * 60 + curr_minute) - (nearest_start_interval_hour * 60);
+    let ezt_minutes_since_start_interval =
+        (curr_hour * 60 + curr_minute) - (nearest_start_interval_hour * 60);
     let ezt_minutes_to_end_interval = if nearest_end_interval_hour == 24 {
         (24 * 60) - (curr_hour * 60 + curr_minute)
     } else {
         (nearest_end_interval_hour * 60) - (curr_hour * 60 + curr_minute)
     };
 
- 
-    let seconds_since_start_interval = eorzea_duration_to_earth_sec(
-        EorzeanTime {
-            years: 0,
-            moons: 0,
-            weeks: 0,
-            suns: 0,
-            bells: 0,
-            minutes: ezt_minutes_since_start_interval as u64,
-            seconds: 0,
-        }
-    );
+    let seconds_since_start_interval = eorzea_duration_to_earth_sec(EorzeanTime {
+        years: 0,
+        moons: 0,
+        weeks: 0,
+        suns: 0,
+        bells: 0,
+        minutes: ezt_minutes_since_start_interval as u64,
+        seconds: 0,
+    });
 
-    let seconds_to_end_interval = eorzea_duration_to_earth_sec(
-        EorzeanTime {
-            years: 0,
-            moons: 0,
-            weeks: 0,
-            suns: 0,
-            bells: 0,
-            minutes: ezt_minutes_to_end_interval as u64,
-            seconds: 0,
-        }
-    );
+    let seconds_to_end_interval = eorzea_duration_to_earth_sec(EorzeanTime {
+        years: 0,
+        moons: 0,
+        weeks: 0,
+        suns: 0,
+        bells: 0,
+        minutes: ezt_minutes_to_end_interval as u64,
+        seconds: 0,
+    });
     let current_epoch_seconds = current_epoch.to_unix_timestamp();
     let start_time = current_epoch_seconds - seconds_since_start_interval as i64;
     let end_time = current_epoch_seconds + seconds_to_end_interval as i64;
     (start_time, end_time)
-    
 }
 
-
 /// Calculates the magic number used to determine the weather
-/// 
+///
 /// # Arguments
 /// - `current_time` - The current time to calculate the forecast for
-/// 
+///
 /// # Returns
 /// - An `i32` representing the magic number used to determine the weather
 pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) -> i32 {
@@ -167,26 +183,33 @@ pub fn calculate_weather_forecast_target<T: ToUnixTimestamp>(current_time: T) ->
 }
 
 /// Gets the weather for a given zone at a given time
-/// 
+///
 /// # Arguments
 /// - `zone_name` - The name of the zone to calculate the forecast for
-/// 
+///
 /// # Returns
 /// - A Weather struct representing the current weather
 pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T) -> Weather {
     // Load the weather data from the JSON file
     let weather_data = include_str!("../data/weather_data.json");
-    let weather_data: serde_json::Value = serde_json::from_str(&weather_data).expect("Unable to parse the weather data");
+    let weather_data: serde_json::Value =
+        serde_json::from_str(&weather_data).expect("Unable to parse the weather data");
     let zone_data = weather_data
         .get(zone_name)
         .and_then(|zone| zone.as_array())
-        .expect(&format!("Unable to find the zone '{}' in the weather data", zone_name));
+        .expect(&format!(
+            "Unable to find the zone '{}' in the weather data",
+            zone_name
+        ));
 
     // Convert the JSON array to a Vec of (String, i32) tuples
     let zone_data = zone_data
         .iter()
         .map(|entry| {
-            let weather = entry[0].as_str().expect("Invalid weather format").to_string();
+            let weather = entry[0]
+                .as_str()
+                .expect("Invalid weather format")
+                .to_string();
             let chance = entry[1].as_i64().expect("Invalid chance format") as i32;
             (weather, chance)
         })
@@ -209,16 +232,20 @@ pub fn get_weather_by_time<T: ToUnixTimestamp>(zone_name: &str, current_time: T)
 
 /// Calculates the weather forecast for a given zone at a given time
 /// Setting interval_offset to 0 will calculate the weather at the given time, as well as the start and end times of the interval
-/// 
+///
 /// # Arguments
 /// - `zone_name` - The name of the zone to calculate the forecast for
 /// - `current_time` - The current time to calculate the forecast for
 /// - `offset` - The intervals to calculate the forecast for. +1 means the next interval, -1 means the previous interval
-/// 
+///
 /// # Returns
 /// - An EorzeaWeather struct representing the forecasted weather
-/// 
-pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, interval_offset: i32) -> EorzeaWeather {
+///
+pub fn calculate_forecast<T: ToUnixTimestamp>(
+    zone_name: &str,
+    current_time: T,
+    interval_offset: i32,
+) -> EorzeaWeather {
     // Each interval is 8 Eorzean hours. 00:00, 08:00, 16:00 are the start times
     let current_epoch = current_time.to_unix_timestamp();
     if interval_offset == 0 {
@@ -226,36 +253,41 @@ pub fn calculate_forecast<T: ToUnixTimestamp>(zone_name: &str, current_time: T, 
         let (start_time, end_time) = calculate_current_weather_interval(current_time);
         let current_weather = get_weather_by_time(zone_name, current_epoch);
         return EorzeaWeather {
-            start_time: start_time,
-            end_time: end_time,
+            start_time: start_time + get_global_weather_timing_offset(),
+            end_time: end_time + get_global_weather_timing_offset(),
             zone_name: zone_name.to_string(),
-            weather: current_weather
+            weather: current_weather,
         };
     }
-    
+
     // Find the current interval and get the weather for the start of the interval
     let current_forecast_interval = calculate_current_weather_interval(current_epoch);
     // Weather changes every 23 real-world minutes, convert to 60 seconds, adjust for number of intervals seeking
-    let offset_interval_start = current_forecast_interval.0 + (23* (1 + interval_offset as i64) *60);
+    let offset_interval_start =
+        current_forecast_interval.0 + (23 * (1 + interval_offset as i64) * 60);
     let weather_at_offset = get_weather_by_time(zone_name, offset_interval_start);
     EorzeaWeather {
-        start_time: offset_interval_start - 1380,
-        end_time: offset_interval_start,
+        start_time: offset_interval_start - 1380 + get_global_weather_timing_offset(),
+        end_time: offset_interval_start + get_global_weather_timing_offset(),
         zone_name: zone_name.to_string(),
-        weather: weather_at_offset
+        weather: weather_at_offset,
     }
 }
 
 /// Find the time which a next Weather effect will occur
-/// 
+///
 /// # Arguments
 /// - `zone_name` - The name of the zone to calculate the forecast for
 /// - `current_time` - The current time to calculate the forecast for
 /// - `target_weather` - The weather effect to search for
-/// 
+///
 /// # Returns
 /// - An EorzeaWeather struct representing the next weather effect
-pub fn find_next_weather_occurance<T: ToUnixTimestamp>(zone_name: &str, current_time: T, target_weather: Weather) -> EorzeaWeather{
+pub fn find_next_weather_occurance<T: ToUnixTimestamp>(
+    zone_name: &str,
+    current_time: T,
+    target_weather: Weather,
+) -> EorzeaWeather {
     let current_epoch = current_time.to_unix_timestamp();
     let mut current_interval = 1;
     let mut next_weather = calculate_forecast(zone_name, current_epoch, current_interval);
